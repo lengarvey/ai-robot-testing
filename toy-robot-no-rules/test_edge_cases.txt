@@ -1,0 +1,49 @@
+# Test invalid commands before PLACE
+MOVE
+LEFT
+RIGHT
+REPORT
+
+# Place robot and test boundary conditions
+PLACE 0,0,SOUTH
+MOVE
+REPORT
+
+PLACE 4,4,NORTH
+MOVE
+REPORT
+
+PLACE 4,4,EAST
+MOVE
+REPORT
+
+# Test invalid PLACE commands
+PLACE 5,5,NORTH
+PLACE -1,0,NORTH
+PLACE 0,0,INVALID
+PLACE 0,0
+PLACE INVALID
+
+# Valid placement after invalid commands
+PLACE 2,2,NORTH
+REPORT
+
+# Test multiple rotations
+LEFT
+LEFT
+LEFT
+LEFT
+REPORT
+
+RIGHT
+RIGHT
+REPORT
+
+# Test complex movement sequence
+MOVE
+MOVE
+RIGHT
+MOVE
+MOVE
+LEFT
+REPORT

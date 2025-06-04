@@ -1,0 +1,110 @@
+# Comprehensive test of all toy robot functionality
+
+# Test invalid commands before placement
+MOVE
+LEFT
+RIGHT
+REPORT
+
+# Test basic placement
+PLACE 2,2,NORTH
+REPORT
+
+# Test movement in all directions
+MOVE
+REPORT
+RIGHT
+MOVE
+REPORT
+RIGHT
+MOVE
+REPORT
+RIGHT
+MOVE
+REPORT
+
+# Test boundary conditions - North
+PLACE 2,4,NORTH
+MOVE
+REPORT
+
+# Test boundary conditions - South
+PLACE 2,0,SOUTH
+MOVE
+REPORT
+
+# Test boundary conditions - East
+PLACE 4,2,EAST
+MOVE
+REPORT
+
+# Test boundary conditions - West
+PLACE 0,2,WEST
+MOVE
+REPORT
+
+# Test invalid placements (should be ignored)
+PLACE -1,0,NORTH
+PLACE 0,-1,NORTH
+PLACE 5,0,NORTH
+PLACE 0,5,NORTH
+PLACE 0,0,INVALID
+REPORT
+
+# Test complete rotation cycle
+PLACE 2,2,NORTH
+LEFT
+LEFT
+LEFT
+LEFT
+REPORT
+
+# Test right rotation cycle
+RIGHT
+RIGHT
+RIGHT
+RIGHT
+REPORT
+
+# Test complex movement sequence
+PLACE 1,1,EAST
+MOVE
+MOVE
+LEFT
+MOVE
+LEFT
+MOVE
+LEFT
+MOVE
+REPORT
+
+# Test example A from problem
+PLACE 0,0,NORTH
+MOVE
+REPORT
+
+# Test example B from problem
+PLACE 0,0,NORTH
+LEFT
+REPORT
+
+# Test example C from problem
+PLACE 1,2,EAST
+MOVE
+MOVE
+LEFT
+MOVE
+REPORT
+
+# Test multiple placements
+PLACE 0,0,SOUTH
+REPORT
+PLACE 4,4,WEST
+REPORT
+
+# Test case insensitive commands (if supported)
+place 1,1,east
+move
+left
+right
+report
