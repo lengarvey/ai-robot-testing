@@ -1,0 +1,84 @@
+# Comprehensive test scenarios for the Toy Robot Simulator
+
+# Test invalid commands before placement
+MOVE
+LEFT
+RIGHT
+REPORT
+
+# Test basic placement and movement
+PLACE 0,0,NORTH
+REPORT
+MOVE
+REPORT
+
+# Test turning
+LEFT
+REPORT
+RIGHT
+RIGHT
+REPORT
+
+# Test edge case - prevent falling off table
+PLACE 0,0,SOUTH
+MOVE
+REPORT
+
+PLACE 4,4,EAST
+MOVE
+REPORT
+
+# Test complex movement sequence
+PLACE 2,2,NORTH
+MOVE
+MOVE
+RIGHT
+MOVE
+MOVE
+LEFT
+MOVE
+REPORT
+
+# Test multiple placements
+PLACE 1,1,EAST
+REPORT
+PLACE 3,3,WEST
+REPORT
+
+# Test boundaries
+PLACE 0,0,WEST
+MOVE
+REPORT
+
+PLACE 4,4,NORTH
+MOVE
+REPORT
+
+# Test full rotation
+PLACE 2,2,NORTH
+LEFT
+LEFT
+LEFT
+LEFT
+REPORT
+
+# Test zigzag pattern
+PLACE 0,0,NORTH
+MOVE
+RIGHT
+MOVE
+LEFT
+MOVE
+RIGHT
+MOVE
+REPORT
+
+# Test invalid placement attempts
+PLACE -1,0,NORTH
+PLACE 5,5,NORTH
+PLACE 0,0,NORTHEAST
+PLACE abc,def,NORTH
+
+# Valid placement after invalid attempts
+PLACE 4,4,SOUTH
+REPORT

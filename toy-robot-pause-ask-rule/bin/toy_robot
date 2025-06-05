@@ -1,0 +1,73 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/toy_robot'
+
+def show_help
+  puts <<~HELP
+    Toy Robot Simulator
+
+    Usage:
+      #{$0} [options] [file]
+
+    Options:
+      -h, --help     Show this help message
+      -v, --verbose  Show detailed output
+      -i, --interactive  Run in interactive mode (default if no file provided)
+
+    Examples:
+      #{$0}                    # Interactive mode
+      #{$0} commands.txt       # Process commands from file
+      #{$0} -v commands.txt    # Process file with verbose output
+      #{$0} -i                 # Force interactive mode
+
+    Commands:
+      PLACE X,Y,F  - Place robot at position X,Y facing direction F
+      MOVE         - Move robot one step forward
+      LEFT         - Turn robot 90 degrees left
+      RIGHT        - Turn robot 90 degrees right
+      REPORT       - Report current position and direction
+      EXIT         - Exit interactive mode
+
+    Where:
+      X,Y are coordinates (0-4, 0-4)
+      F is direction: NORTH, SOUTH, EAST, WEST
+  HELP
+end
+
+# Parse command line arguments
+filename = nil
+interactive = false
+verbose = false
+
+ARGV.each_with_index do |arg, index|
+  case arg
+  when '-h', '--help'
+    show_help
+    exit 0
+  when '-v', '--verbose'
+    verbose = true
+  when '-i', '--interactive'
+    interactive = true
+  else
+    if filename.nil? && !arg.start_with?('-')
+      filename = arg
+    end
+  end
+end
+
+# Set verbose mode
+ENV['VERBOSE'] = '1' if verbose
+
+# Create toy robot instance
+toy_robot = ToyRobot.new
+
+# Determine mode
+if filename && !interactive
+  # File mode
+  success = toy_robot.run_from_file(filename)
+  exit(success ? 0 : 1)
+else
+  # Interactive mode
+  toy_robot.run_interactive
+  exit 0
+end
