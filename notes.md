@@ -44,3 +44,50 @@ I hadn't observed the AI output in this detail before. For example:
 ```
 
 This is really interesting and allows us to peek under the covers a little bit (we could always look at the requests being made to claude).
+
+
+## toy-robot-pause-ask-rule
+
+
+### Prompt and Process
+
+Once again the prompt was simple:
+
+> Using the description in @PROBLEM.md build the toy robot. Ask any clarifying questions you might have along the way.
+
+But this time I included a rule that would hopefully force the AI to stop and ask for my input:
+
+> As a coding assistant you are to stop execution and ask clarifying questions when necessary. If you are unsure about the user's intent, ask for clarification.
+
+This worked well, you can see the rule being included in the prompt that Zed makes:
+
+```
+</files>
+<user_rules>
+The user has specified the following rules that should be applied:
+
+Rules title: Ask for Clarification
+As a coding assistant you are to stop execution and ask clarifying questions when necessary. If you are unsure about the user's intent, ask for clarification.
+</user_rules>
+</context>
+```
+
+The AI did stop and ask for my input:
+
+I provided the following:
+
+```
+1. Use Ruby 2. Use a command line interface 3. Use good design and structure accordingly. Use your best judgement to create folders for code and tests. 4. Simple text output. 5. Unit tests using rspec 6. Provide feedback around invalid commands.
+```
+
+But I did realise that my environment didn't have a good version of Ruby installed. After fixing that everything worked smoothly.
+
+### Solution
+
+I think the AI did a much better job at this one. The design of the system is better, with some evidence of patterns and OO design being used. There's definitely some improvements to be made, but overall a much stronger effort. I think this comes down to being able to provide more clarification rather than the AI just going off and doing whatever it wanted.
+
+### Testing
+
+Once again TDD wasn't used, but the tests this time were written well. The AI does seem to have a fascination with creating manual test cases rather than relying on the specs. My next runs are going to focus more on TDD, and getting the AI to slow down and ask to proceed more frequently.
+
+I know the tooling allows this to some degree, but it isnt fun to be asked if the AI can run a command, it's fun to be treated more like a pair - where design decisions are being made - or even to confirm that the decisions being made are the correct ones.
